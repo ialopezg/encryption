@@ -1,0 +1,23 @@
+{
+    "name": "ialopezg/encryption",
+    "description": "Encryption Library for PHP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Isidro A. López G.",
+            "email": "me@ialopezg.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "ext-openssl": "*",
+        "ialopezg/logger": "^0.0.4",
+        "ialopezg/core": "^0.0.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "ialopezg\\Libraries\\": "src/"
+        }
+    }
+}
