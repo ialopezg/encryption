@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": ">=5.6",
+        "ext-mbstring": "*",
         "ext-openssl": "*",
         "ialopezg/logger": "^0.0.4",
         "ialopezg/core": "^0.0.2"
