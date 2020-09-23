@@ -26,13 +26,13 @@ Cryptography Library for PHP
 1. Package manager
     - Composer
         ```shell script
-        composer require ialopezg/core
+        composer require ialopezg/encryption
         ```
 
 2. Manually
     - **Github**
         ```shell script
-        git clone https://github.com/ialopezg/core
+        git clone https://github.com/ialopezg/encryption
         ```
 
 ## License
