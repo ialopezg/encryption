@@ -16,9 +16,12 @@ use function is_array;
 use function is_null;
 use function key_exists;
 use function mb_strlen;
+use function openssl_encrypt;
 use function openssl_random_pseudo_bytes;
 use function strlen;
 use function strtoupper;
+
+use const OPENSSL_CIPHER_RC2_40;
 
 /**
  * Base class for password encryption and manipulation.
@@ -64,19 +67,32 @@ abstract class AbstractPassword implements PasswordInterface {
 
     /**
      * @inheritDoc
+     *
+     * @throws InvalidArgumentException|Exception If data provided is not a valid string.
      */
     public function decrypt($data) {
-        return false;
+        // check if data is a string
+        if (!is_string($data)) {
+            throw new InvalidArgumentException('The data parameter must be a string.');
+        }
+
+        return openssl_decrypt(
+            $data,
+            $this->getOption('cipher'),
+            $this->getOption('encryption_key'),
+            $this->getOption('options'),
+            $this->getOption('iv'));
     }
 
     /**
      * @inheritDoc
-     * @throws InvalidArgumentException|Exception If password provided is not a valid string.
+     *
+     * @throws InvalidArgumentException|Exception If data provided is not a valid string.
      */
-    public function encrypt($password) {
-        // check if password is a string
-        if (!is_string($password)) {
-            throw new InvalidArgumentException("Password parameter must be a string.");
+    public function encrypt($data) {
+        // check if data is a string
+        if (!is_string($data)) {
+            throw new InvalidArgumentException('The data parameter must be a string.');
         }
 
         // get cipher method
@@ -103,7 +119,7 @@ abstract class AbstractPassword implements PasswordInterface {
         $options = $this->getOption('options', OPENSSL_CIPHER_RC2_40);
 
         // process and return result value
-        return openssl_encrypt($password, $cipher, $encryption_key, $options, $iv);
+        return openssl_encrypt($data, $cipher, $encryption_key, $options, $iv);
     }
 
     /**
