@@ -2,6 +2,7 @@
 
 namespace ialopezg\Libraries\Encryption;
 
+use Exception;
 use InvalidArgumentException;
 
 /**
@@ -11,7 +12,18 @@ use InvalidArgumentException;
  */
 interface PasswordInterface {
     /**
-     * Decrypt a password hash for a given encrypted password.
+     * Creates a random key with the length specified. Optional the result could be returned with capital letters.
+     *
+     * @param int $length       Output length.
+     * @param bool $capitalize  Whether if the result key will be returned with capital letters.
+     *
+     * @throws Exception If it was not possible to gather sufficient entropy.
+     * @return string A random key.
+     */
+    public static function createKey($length, $capitalize = false);
+
+    /**
+     * Decrypts cipher data into plain text data.
      *
      * @param string $data Encrypted data to decrypt.
      *
@@ -22,7 +34,7 @@ interface PasswordInterface {
     public function decrypt($data);
 
     /**
-     * Encrypt a plain text into cipher text.
+     * Encrypts a plain text into cipher text.
      *
      * @param string $data The input data to encrypt.
      *
@@ -33,18 +45,7 @@ interface PasswordInterface {
     public function encrypt($data);
 
     /**
-     * Create a random key.
-     *
-     * @param int $length       Output length.
-     * @param bool $capitalize  Capitalize the result key.
-     *
-     * @return string A random key.
-     * @throws \Exception If it was not possible to gather sufficient entropy.
-     */
-    public static function createKey($length, $capitalize = true);
-
-    /**
-     * Get an option value.
+     * Gets an option value. If value does not exists will return the default value.
      *
      * @param string $key Option key name.
      * @param null $default Option default value.
@@ -54,7 +55,7 @@ interface PasswordInterface {
     public function getOption($key, $default = null);
 
     /**
-     * Set an option value.
+     * Sets an option value.
      *
      * @param string $key Option key name.
      * @param mixed $value Option value.

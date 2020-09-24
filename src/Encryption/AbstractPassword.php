@@ -68,7 +68,8 @@ abstract class AbstractPassword implements PasswordInterface {
     /**
      * @inheritDoc
      *
-     * @throws InvalidArgumentException|Exception If data provided is not a valid string.
+     * @throws InvalidArgumentException If data provided is not a valid string.
+     * @throws Exception If it was not possible to gather sufficient entropy for createKey function.
      */
     public function decrypt($data) {
         // check if data is a string
